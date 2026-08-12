@@ -1,0 +1,131 @@
+-- [[ MULTI-SCRIPT LOADER HUB (ORION UI VERSION) ]] --
+local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
+
+-- 1. ตั้งค่าระบบเสียง
+local SoundID = "rbxassetid://140207837688369"
+
+local function PlayClickSound()
+    task.spawn(function()
+        local sound = Instance.new("Sound")
+        sound.SoundId = SoundID
+        sound.Volume = 1
+        sound.Parent = game:GetService("SoundService")
+        sound:Play()
+        sound.Ended:Wait()
+        sound:Destroy()
+    end)
+end
+
+-- 2. สร้างหน้าต่าง Orion UI
+local Window = OrionLib:CreateWindow({
+    Name = "⚡ LOADER HUB | Fadel-99",
+    HidePremium = false,
+    SaveConfig = false,
+    ConfigFolder = "FadelHubConfig",
+    IntroEnabled = true,
+    IntroText = "by Dell"
+})
+
+-- สร้าง 2 แท็บหลัก
+local Tab1 = Window:MakeTab({
+    Name = "🌲 99วันในป่า",
+    Icon = "rbxassetid://4483362458",
+    PremiumOnly = false
+})
+
+local Tab2 = Window:MakeTab({
+    Name = "⌨️ คีย์บอร์ด",
+    Icon = "rbxassetid://4483362458",
+    PremiumOnly = false
+})
+
+local Plr = game.Players.LocalPlayer
+
+-- ==================== [ TAB 1: 99วันในป่า ] ==================== --
+Tab1:AddSection({
+    Name = "🚀 สคริปต์ 99วันในป่า (You a kill)"
+})
+
+Tab1:AddButton({
+    Name = "▶️ กดเพื่อรันสคริปต์ (99วันในป่า)",
+    Callback = function()
+        PlayClickSound()
+        OrionLib:MakeNotification({
+            Name = "Executing...",
+            Content = "กำลังโหลดสคริปต์ 99วันในป่า...",
+            Image = "rbxassetid://4483362458",
+            Time = 3
+        })
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ggdd49272-eng/You-a-roblox/refs/heads/main/You%20a%20kill"))()
+    end    
+})
+
+Tab1:AddButton({
+    Name = "📋 คัดลอกลิงก์ Discord",
+    Callback = function()
+        PlayClickSound()
+        setclipboard("https://discord.gg/MWgJa5fRJ")
+        OrionLib:MakeNotification({
+            Name = "Copied!",
+            Content = "คัดลอกลิงก์ Discord เรียบร้อยแล้ว",
+            Image = "rbxassetid://4483362458",
+            Time = 3
+        })
+    end    
+})
+
+-- ==================== [ TAB 2: คีย์บอร์ด ] ==================== --
+Tab2:AddSection({
+    Name = "🚀 สคริปต์แมพคีย์บอร์ด (Luarmor Loader)"
+})
+
+Tab2:AddButton({
+    Name = "▶️ กดเพื่อรันสคริปต์ (คีย์บอร์ด)",
+    Callback = function()
+        PlayClickSound()
+        OrionLib:MakeNotification({
+            Name = "Executing...",
+            Content = "กำลังโหลดสคริปต์คีย์บอร์ด...",
+            Image = "rbxassetid://4483362458",
+            Time = 3
+        })
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/359e97f8618e9008afe5f496184ebb7c.lua"))()
+    end    
+})
+
+Tab2:AddSection({
+    Name = "⚡ ปรับแต่งตัวละคร (Player Settings)"
+})
+
+Tab2:AddSlider({
+    Name = "ความเร็วการเดิน (WalkSpeed)",
+    Min = 16,
+    Max = 200,
+    Default = 16,
+    Color = Color3.fromRGB(255, 255, 255),
+    Increment = 1,
+    ValueName = "Speed",
+    Callback = function(Value)
+        if Plr.Character and Plr.Character:FindFirstChild("Humanoid") then
+            Plr.Character.Humanoid.WalkSpeed = Value
+        end
+    end    
+})
+
+Tab2:AddSlider({
+    Name = "แรงกระโดด (JumpPower)",
+    Min = 50,
+    Max = 300,
+    Default = 50,
+    Color = Color3.fromRGB(255, 255, 255),
+    Increment = 5,
+    ValueName = "Jump",
+    Callback = function(Value)
+        if Plr.Character and Plr.Character:FindFirstChild("Humanoid") then
+            Plr.Character.Humanoid.JumpPower = Value
+        end
+    end    
+})
+
+-- เริ่มต้นการทำงาน UI
+OrionLib:Init()
